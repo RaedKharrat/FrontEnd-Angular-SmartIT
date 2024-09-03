@@ -70,10 +70,10 @@ export class AuthSignInComponent implements OnInit {
         // Create the form
         this.signInForm = this._formBuilder.group({
             code: [
-                '41000001',
+                '',
                 [Validators.required],
             ],
-            password: ['password', Validators.required],
+            password: ['', Validators.required],
             rememberMe: [''],
         });
     }

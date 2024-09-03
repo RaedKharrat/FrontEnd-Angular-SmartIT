@@ -79,11 +79,11 @@ export class HomeService {
             }));
     }
 
-    getCommandeCount(): Observable<any> {
-        return this._httpClient.get(this._baseUrl+'commande/count').pipe(
-            tap((response: any) => {
-                this._commandeCount.next(response);    
-    })
-        );
-    }
+    // getCommandeCount(): Observable<any> {
+    //     return this._httpClient.get(this._baseUrl+'commande/count').pipe(
+    //         tap((response: any) => {
+    //             this._commandeCount.next(response);    
+    // })
+    //     );
+    // }
 }

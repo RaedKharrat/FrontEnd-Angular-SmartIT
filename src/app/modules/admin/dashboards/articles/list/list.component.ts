@@ -32,8 +32,7 @@ import { ArticlesService } from '../articles.service';
 import {
     Observable,
     Subject,
-    filter,
-    fromEvent,
+
     of,
     switchMap,
     takeUntil,
