@@ -1,0 +1,20 @@
+<form [formGroup]="absenceForm" (ngSubmit)="onSubmit()" class="absence-form">
+  <mat-card>
+    <mat-card-title>Absence Form</mat-card-title>
+    <mat-card-content>
+      <div class="form-group">
+        <mat-form-field appearance="fill">
+          <mat-label>User ID</mat-label>
+          <input matInput id="userId" formControlName="userId" type="number" placeholder="Enter User ID" />
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field appearance="fill">
+          <mat-label>Absence Date</mat-label>
+          <input matInput id="absenceDate" formControlName="absenceDate" type="date" />
+        </mat-form-field>
+      </div>
+      <button mat-raised-button color="primary" type="submit">Save</button>
+    </mat-card-content>
+  </mat-card>
+</form>

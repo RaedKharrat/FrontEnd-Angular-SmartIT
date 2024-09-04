@@ -1,0 +1,11 @@
+<div *ngIf="stageRequest">
+    <h2>Stage Request Details</h2>
+    <p>User ID: {{ stageRequest.user.id }}</p>
+    <p>CV URL: {{ stageRequest.cvUrl }}</p>
+    <p>Status: {{ stageRequest.status }}</p>
+  </div>
+  
+  <div *ngIf="!stageRequest">
+    <p>Loading...</p>
+  </div>
+  

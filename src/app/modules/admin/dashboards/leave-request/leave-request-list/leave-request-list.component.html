@@ -1,0 +1,29 @@
+<div class="p-6">
+  <h1 class="text-2xl font-semibold">Leave Requests</h1>
+  <table class="min-w-full bg-white">
+    <thead>
+      <tr>
+        <th class="py-2">User ID</th>
+        <th class="py-2">Leave Type</th>
+        <th class="py-2">Start Date</th>
+        <th class="py-2">End Date</th>
+        <th class="py-2">Status</th>
+        <th class="py-2">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let request of leaveRequests">
+        <td class="py-2">{{ request.user.id }}</td>
+        <td class="py-2">{{ request.type }}</td>
+        <td class="py-2">{{ request.startDate }}</td>
+        <td class="py-2">{{ request.endDate }}</td>
+        <td class="py-2">{{ request.status }}</td>
+        <td class="py-2">
+          <button (click)="viewDetails(request.id!)" class="text-blue-600">View</button>
+          <button (click)="delete(request.id!)" class="text-red-600">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <a routerLink="/leave-requests/new" class="text-blue-600">Add New Leave Request</a>
+</div>

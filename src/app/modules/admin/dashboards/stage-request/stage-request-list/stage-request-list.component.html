@@ -1,0 +1,13 @@
+<div *ngIf="stageRequests.length > 0; else noRequests">
+  <ul>
+    <li *ngFor="let stageRequest of stageRequests">
+      <a [routerLink]="['/stage-requests', stageRequest.id]">
+        {{ stageRequest.user.id }} - {{ stageRequest.status }}
+      </a>
+    </li>
+  </ul>
+</div>
+
+<ng-template #noRequests>
+  <p>No stage requests found.</p>
+</ng-template>

@@ -1,0 +1,539 @@
+<div class="absolute inset-0 min-w-0 overflow-auto text-center print:overflow-visible" cdkScrollable>
+    <!-- Main -->
+    <div class="inline-block p-6 text-left sm:p-10 print:p-0">
+        <!-- Invoice -->
+        <div class="bg-card w-240 min-w-240 rounded-2xl p-16 shadow print:w-auto print:rounded-none print:bg-transparent print:p-0 print:shadow-none">
+         @if (rs) {
+            <div class="container mx-auto p-4 font-sans text-sm">
+                <div class="flex justify-between mb-4">
+                  <div>
+                    <p class="font-bold">REPUBLIQUE TUNISIENNE</p>
+                    <p>DIRECTION GENERALE</p>
+                    <p>MINISTERE DU PLAN ET DES FINANCES</p>
+                    <p>DU CONTROLE FISCAL</p>
+                  </div>
+                  <div class="text-right">
+                    <p class="font-bold">CERTIFICAT DE RETENUE</p>
+                    <p>D'IMPOT SUR REVENU OU</p>
+                    <p>IMPOT SUR LES SOCIETES</p>
+                  </div>
+                </div>
+              
+                <div class="mb-4">
+                  <p>Retenue effectuée le __________ ou pendant (1) Trimestre __________</p>
+                </div>
+              
+                <div class="border border-gray-400 p-2 mb-4">
+                  <div class="flex justify-between items-center">
+                    <p class="font-bold">A - PERSONNE OU ORGANISME PAYEUR</p>
+                    <p class="font-bold">IDENTIFIANT</p>
+                  </div>
+                  <div class="flex justify-end mt-2">
+                    <table class="w-1/2 border-collapse">
+                      <tr>
+                        <th class="border border-gray-400 px-2 py-1">Matricule Fiscal</th>
+                        <th class="border border-gray-400 px-2 py-1">Code TVA</th>
+                        <th class="border border-gray-400 px-2 py-1">Code Catégorie (2)</th>
+                        <th class="border border-gray-400 px-2 py-1">N°Etab. Secondaire</th>
+                      </tr>
+                      <tr>
+                        @if(details.piedFact.tvaclt){
+                        <td class="border border-gray-400 px-2 py-1 text-center">{{makeTvaCltIntoArray(details.piedFact.tvaclt)[0]}}</td>
+                        <td class="border border-gray-400 px-2 py-1 text-center">{{makeTvaCltIntoArray(details.piedFact.tvaclt)[1]}}</td>
+                        <td class="border border-gray-400 px-2 py-1 text-center">{{makeTvaCltIntoArray(details.piedFact.tvaclt)[2]}}</td>
+                        <td class="border border-gray-400 px-2 py-1 text-center">{{makeTvaCltIntoArray(details.piedFact.tvaclt)[3]}}</td>
+                        }
+                        @else{
+                        <td class="border border-gray-400 px-2 py-1 text-center">{{makeTvaCltIntoArray(details.piedFact.patclt)[0]}}</td>
+                        <td class="border border-gray-400 px-2 py-1 text-center">{{makeTvaCltIntoArray(details.piedFact.patclt)[1]}}</td>
+                        <td class="border border-gray-400 px-2 py-1 text-center">{{makeTvaCltIntoArray(details.piedFact.patclt)[2]}}</td>
+                        <td class="border border-gray-400 px-2 py-1 text-center">{{makeTvaCltIntoArray(details.piedFact.patclt)[3]}}</td>
+                        }
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="mt-2">
+                    <p>Dénomination de la personne ou organisme payeur: {{ details.piedFact.nomclt }}</p>
+                    <div class="flex justify-between">
+                      <p>Adresse: {{ details.piedFact.adrclt }}</p>
+                      <p>{{ details.piedFact.codecl }}</p>
+                    </div>
+                  </div>
+                </div>
+              
+                <div class="border border-gray-400 p-2 mb-4">
+                  <table class="w-full border-collapse">
+                    <tr>
+                      <th class="border border-gray-400 px-2 py-1 w-1/2">B - RETENUE EFFECTUES SUR</th>
+                      <th class="border border-gray-400 px-2 py-1">MONTANT BRUT</th>
+                      <th class="border border-gray-400 px-2 py-1">RETENUE</th>
+                      <th class="border border-gray-400 px-2 py-1">MONTANT NET</th>
+                    </tr>
+                    <tr>
+                      <td class="border border-gray-400 px-2 py-1">* Retenue aux titre de marché taux 1 %</td>
+                      <td class="border border-gray-400 px-2 py-1 text-right">{{convertStringToDecimal(details.piedFact.totttc)}}</td>
+                      <td class="border border-gray-400 px-2 py-1 text-right">{{0.01*convertStringToDecimal(details.piedFact.totttc)}}</td>
+                      <td class="border border-gray-400 px-2 py-1 text-right">{{(convertStringToDecimal(details.piedFact.totttc)-0.01*convertStringToDecimal(details.piedFact.totttc)).toFixed(3)}}</td>
+                    </tr>
+                    <tr>
+                      <td class="border border-gray-400 px-2 py-1">* Honoraires, Commissions, Courtages, Vacations et Loyers</td>
+                      <td class="border border-gray-400 px-2 py-1"></td>
+                      <td class="border border-gray-400 px-2 py-1"></td>
+                      <td class="border border-gray-400 px-2 py-1"></td>
+                    </tr>
+                    <tr>
+                      <td class="border border-gray-400 px-2 py-1">* Redevances</td>
+                      <td class="border border-gray-400 px-2 py-1"></td>
+                      <td class="border border-gray-400 px-2 py-1"></td>
+                      <td class="border border-gray-400 px-2 py-1"></td>
+                    </tr>
+                    <tr>
+                      <td class="border border-gray-400 px-2 py-1">* Revenus des Comptes Spéciaux d'épargne ouvert auprès des banques</td>
+                      <td class="border border-gray-400 px-2 py-1"></td>
+                      <td class="border border-gray-400 px-2 py-1"></td>
+                      <td class="border border-gray-400 px-2 py-1"></td>
+                    </tr>
+                    <tr>
+                      <td class="border border-gray-400 px-2 py-1">* Revenus des capitaux mobiles</td>
+                      <td class="border border-gray-400 px-2 py-1"></td>
+                      <td class="border border-gray-400 px-2 py-1"></td>
+                      <td class="border border-gray-400 px-2 py-1"></td>
+                    </tr>
+                    <tr>
+                      <td class="border border-gray-400 px-2 py-1">* Revenus des bons de caisse au poteur</td>
+                      <td class="border border-gray-400 px-2 py-1"></td>
+                      <td class="border border-gray-400 px-2 py-1"></td>
+                      <td class="border border-gray-400 px-2 py-1"></td>
+                    </tr>
+                    <tr class="font-bold">
+                      <td class="border border-gray-400 px-2 py-1">TOTAL GENERAL</td>
+                      <td class="border border-gray-400 px-2 py-1 text-right">{{convertStringToDecimal(details.piedFact.totttc)}}</td>
+                      <td class="border border-gray-400 px-2 py-1 text-right">{{0.01*convertStringToDecimal(details.piedFact.totttc)}}</td>
+                      <td class="border border-gray-400 px-2 py-1 text-right">{{(convertStringToDecimal(details.piedFact.totttc)-0.01*convertStringToDecimal(details.piedFact.totttc)).toFixed(3)}}</td>
+                    </tr>
+                  </table>
+                </div>
+              
+                <div class="border border-gray-400 p-2 mb-4">
+                  <div class="flex justify-between items-center">
+                    <p class="font-bold">C - BENEFICIAIRE</p>
+                    <p class="font-bold">IDENTIFIANT</p>
+                  </div>
+                  <div class="flex justify-end mt-2">
+                    <table class="w-1/2 border-collapse">
+                      <tr>
+                        <th class="border border-gray-400 px-2 py-1">Mat.Fiscal</th>
+                        <th class="border border-gray-400 px-2 py-1">Code TVA</th>
+                        <th class="border border-gray-400 px-2 py-1">Code Catégorie</th>
+                        <th class="border border-gray-400 px-2 py-1">N°Etab.</th>
+                      </tr>
+                      <tr>
+                        <td class="border border-gray-400 px-2 py-1 text-center">736548X</td>
+                        <td class="border border-gray-400 px-2 py-1 text-center">A</td>
+                        <td class="border border-gray-400 px-2 py-1 text-center">M</td>
+                        <td class="border border-gray-400 px-2 py-1 text-center">000</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="mt-2">
+                    <p>Nom, prénom ou raison sociale: STE MOHAMED GHARIANI</p>
+                    <p>Adresse: RUE AHMED ESSIKELLI IM ANBARA 3027 SFAX</p>
+                  </div>
+                </div>
+              
+                <div class="text-center mb-4">
+                  <p>Je soussigné certifie les renseignements figurant sur le présent</p>
+                  <p>certificat et m'expose aux sanctions par la loi pour toute inexactitude</p>
+                </div>
+              
+                <div class="flex justify-end">
+                  <div class="text-right">
+                    <p>LE: {{ details.piedFact.datvte }}</p>
+                    <p>Cachet et signature du payeur</p>
+                  </div>
+                </div>
+              
+                <div class="text-xs mt-4">
+                  <p>(1) Le certificat est délivré à l'occasion de chaque payement. Toutefois pour les opérations répétitives, le certificat peut être délivré trimestriellement</p>
+                  <p>(2) Code catégorie : M personne morale-C personne physique-I industrie et commerce-P profession libérale-N employeurs non soumis à impôt sur le revenu ou sur les sociétés(administrations et établissements publics)-E établissements secondaire.</p>
+                </div>
+              </div>
+         }
+         @else {
+            <div class="flex items-start">
+                <div class="grid place-items-start gap-y-12">
+                    <div class="grid auto-cols-max grid-flow-col gap-x-8">
+                        <div class="ml-auto text-left">
+                            <div class="text-lg" style="color: #bc1d10; font-size: 1.5em">
+                                <span style="font-size: 0.9em" class="font-bold">STÉ</span>
+                                <span class="font-bold"> MOHAMED GHARIANI</span>
+                            </div>
+                            <div class="text-lg" style="color: #2c2e35">
+                                <span style="font-size: 0.8em" class="font-bold">Vente Pièces Electronique Autos En
+                                    Gros</span>
+                            </div>
+                            <div class="text-lg" style="color: #bc1d10">
+                                <span style="font-size: 0.8em" class="font-bold">SARL au capital de 3.000.000
+                                    Dinars</span>
+                            </div>
+                            <div class="text-lg" style="color: #2c2e35">
+                                <span style="font-size: 0.8em" class="font-medium">RUE AHMED ESSIKILLI IMM. ANBRA NUM
+                                    3</span>
+                            </div>
+                            <div class="text-lg" style="color: #2c2e35">
+                                <span style="font-size: 0.8em" class="font-medium">3027 - SFAX - TUNISIE</span>
+                            </div>
+                            <div class="text-lg" style="color: #2c2e35">
+                                <span style="font-size: 0.8em" class="font-bold">Tél.: +216 74 403 884</span>
+                            </div>
+                            <div class="text-lg" style="color: #2c2e35">
+                                <span style="font-size: 0.8em; margin-left: 12%" class="font-bold">+216 74 403
+                                    881</span>
+                            </div>
+                            <div class="text-lg" style="color: #2c2e35">
+                                <span style="font-size: 0.8em; margin-left: 12%" class="font-bold">+216 74 408
+                                    822</span>
+                            </div>
+                            <div class="text-lg" style="color: #2c2e35">
+                                <span style="font-size: 0.8em" class="font-bold">Fax: +216 74 408 355</span>
+                            </div>
+                            <div class="text-lg" style="color: #2c2e35">
+                                <span style="font-size: 0.8em" class="font-bold">Email:
+                                    ste.ghariani-med&#64;ghariani.tn</span>
+                            </div>
+                            <div class="text-lg" style="color: #bc1d10">
+                                <span style="font-size: 0.8em" class="font-bold">TVA: 73 6548 X/A/M 001</span>
+                            </div>
+                            <div class="text-lg" style="color: #bc1d10">
+                                <span style="font-size: 0.8em" class="font-bold">R.C: B11 6572000</span>
+                            </div>
+                            <br />
+                            <div class="text-lg" style="color: #2c2e35">
+                                <span class="font-bold">Client: </span>
+                            </div>
+                            <div class="text-lg" style="color: #2c2e35">
+                                <span style="font-size: 0.8em" class="font-medium">{{ details.piedFact.nomclt }}</span>
+                            </div>
+                            <div class="text-lg" style="color: #2c2e35">
+                                <span style="font-size: 0.8em" class="font-medium">{{ details.piedFact.adrclt }}</span>
+                            </div>
+                            <div class="text-lg" style="color: #2c2e35">
+                                <span style="font-size: 0.8em" class="font-medium">{{ details.piedFact.tvaclt }}</span>
+                            </div>
+                            <div class="text-lg" style="color: #2c2e35">
+                                <span style="font-size: 0.8em" class="font-medium">{{ details.piedFact.patclt }}</span>
+                            </div>
+                        </div>
+                        <div class="place-self-middle w-40">
+                            <img class="w-full" src="images/logo/invoice_logo.png"
+                                style="margin-left: 20%; margin-top: 50%" />
+                        </div>
+                    </div>
+                </div>
+                <div class="ml-auto grid gap-x-4 gap-y-1">
+                    <div class="justify-self-end text-lg" style="color: #bc1d10; font-size: 1.5em">
+                        <span class="font-bold">ﺷﺮﻛﺔ ﻣﺤﻤﺪ ﺍﻟﻐﺮﻳــﺎﻧـﻲ</span>
+                    </div>
+                    <div class="justify-self-end text-lg" style="color: #2c2e35">
+                        <span style="font-size: 0.8em" class="font-bold">ﺑﻴﻊ ﺟﻤﻴﻊ ﺍﻟﻘﻄﻊ ﺍﻟﻜﻬﺮﺑﺎﺋﻴﺔ ﻟﻠﺴﻴﺎﺭﺍﺕ
+                            ﺑﺎﻟﺠﻤﻠﺔ</span>
+                    </div>
+                    <div class="justify-self-end text-lg" style="color: #bc1d10">
+                        <span style="font-size: 0.8em" class="font-bold">ﺵ.ﺫ.ﻡ.ﻡ ﺭﺃﺱ ﻣﺎﻟﻬﺎ 3.000.000 ﺩﻳﻨﺎﺭ</span>
+                    </div>
+                    <div class="justify-self-end text-lg" style="color: #2c2e35">
+                        <span style="font-size: 0.8em" class="font-medium">3 ﻋﺪد ﻣﻐﺎزة ﻋﻨﺒﺮة ﻋﻤﺎرة اﻟﺴﻘﻠﻲ أﺣﻤﺪ
+                            ﻧﻬﺞ</span>
+                    </div>
+                    <div class="justify-self-end text-lg" style="color: #2c2e35">
+                        <span style="font-size: 0.8em" class="font-medium">ﺻﻔﺎﻗﺲ - ﺗﻮﻧﺲ 3027</span>
+                    </div>
+                    <div class="justify-self-end text-lg" style="color: #2c2e35">
+                        <span style="font-size: 0.8em" class="font-bold">
+                            +216 74 403 884
+                        </span>
+                        <span style="font-size: 0.8em" class="font-bold">
+                            :
+                        </span>
+                        <span style="font-size: 0.8em" class="font-bold">
+                            ﺍﻟﻬﺎﺗﻒ</span>
+                    </div>
+                    <div class="text-lg" style="color: #2c2e35">
+                        <span style="font-size: 0.8em; margin-left: 48%" class="font-bold">+216 74 403 881</span>
+                    </div>
+                    <div class="text-lg" style="color: #2c2e35">
+                        <span style="font-size: 0.8em; margin-left: 48%" class="font-bold">+216 74 408 822</span>
+                    </div>
+                    <div class="justify-self-end text-lg" style="color: #2c2e35">
+                        <span style="font-size: 0.8em" class="font-bold">
+                            +216 74 408 355
+                        </span>
+                        <span style="font-size: 0.8em" class="font-bold">
+                            :
+                        </span>
+                        <span style="font-size: 0.8em" class="font-bold">
+                            ﺍﻟﻔﺎﻛﺲ</span>
+                    </div>
+                    <div class="justify-self-end text-lg" style="color: #2c2e35">
+                        <span style="font-size: 0.8em" class="font-bold">
+                            ste.ghariani-med&#64;ghariani.tn
+                        </span>
+                        <span style="font-size: 0.8em" class="font-bold">
+                            :
+                        </span>
+                        <span style="font-size: 0.8em" class="font-bold">
+                            ﺍﻟﺒﺮﻳﺪ ﺍﻻﻟﻜﺘﺮﻭﻧﻲ</span>
+                    </div>
+                    <div class="justify-self-end text-lg" style="color: #2c2e35; margin-top: 10%">
+                        <span class="font-bold">Facture N° {{ details.piedFact.nfact }}</span>
+                    </div>
+                    <div class="justify-self-end text-lg" style="color: #2c2e35; margin-top: 5%">
+                        <span style="font-size: 0.8em" class="font-bold">LE {{ details.piedFact.datvte }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-16 grid grid-cols-12 gap-x-1">
+                <!-- Columns -->
+                <div class="col-span-12">
+                    <div class="mb-4 grid grid-cols-7 gap-4">
+                        <div class="text-secondary text-md font-medium">
+                            Référence
+                        </div>
+                        <div class="text-secondary text-right text-md font-medium">
+                            DESIGNATION
+                        </div>
+                        <div class="text-secondary text-right text-md font-medium">
+                            QTE
+                        </div>
+                        <div class="text-secondary text-right text-md font-medium">
+                            P.H.T
+                        </div>
+                        <div class="text-secondary text-right text-md font-medium">
+                            REM
+                        </div>
+                        <div class="text-secondary text-right text-md font-medium">
+                            TVA
+                        </div>
+                        <div class="text-secondary text-right text-md font-medium">
+                            Montant H.T
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Divider -->
+                <div class="col-span-12 my-4 border-b"></div>
+
+                <!-- Items -->
+
+                <div class="col-span-12" *ngFor="let group of groupedVentes">
+                    <!-- BON Header -->
+                    <div class="mb-4">
+                        <h3 class="text-lg font-bold">BON N°&nbsp;&nbsp;&nbsp;&nbsp;{{ group.nbon }}&nbsp;&nbsp;&nbsp;&nbsp; DU &nbsp;&nbsp;&nbsp;&nbsp;{{ group.datvte }}</h3>
+                    </div>
+                    <!-- Divider -->
+                    <div class="col-span-12 my-4 border-b"></div>
+
+                    <div *ngFor="let vente of group.ventes" class="mb-4">
+                        <div class="mb-4 grid grid-cols-7 gap-4">
+                            <div class="text-lg font-medium">
+                                {{ vente.reference }}
+                            </div>
+                            <div class="self-center text-right">
+                                {{ vente.instance }}
+                            </div>
+                            <div class="self-center text-right">
+                                {{ vente.qte }}
+                            </div>
+                            <div class="self-center text-right">
+                                {{ convertStringToDecimal(vente.pvht) }}
+                            </div>
+                            <div class="self-center text-right">
+                                {{ vente.remise }}
+                            </div>
+                            <div class="self-center text-right">
+                                {{ vente.tva }}
+                            </div>
+                            <div class="self-center text-right">
+                                {{
+                                getMontantHT(
+                                convertStringToDecimal(vente.pvht),
+                                vente.qte,
+                                vente.remise
+                                )
+                                }}
+                            </div>
+                        </div>
+                        <!-- Divider -->
+                        <div class="col-span-12 my-4 border-b"></div>
+                    </div>
+                </div>
+
+                <!-- Spacer -->
+                <div class="col-span-12 mt-16"></div>
+
+                <!-- Subtotal -->
+                <!-- <div class="text-secondary col-span-10 self-center font-medium tracking-tight">
+                    MONTANT HT
+                </div>
+                <div class="col-span-2 text-right text-lg">
+                    {{ convertStringToDecimal(details.piedFact.brutht) }} TND
+                </div> -->
+
+                <!-- Divider -->
+                <!-- <div class="col-span-12 my-3 border-b"></div> -->
+
+                <!-- Tax -->
+                <!-- <div class="text-secondary col-span-10 self-center font-medium tracking-tight">
+                    REMISE
+                </div>
+                <div class="col-span-2 text-right text-lg">
+                    {{ convertStringToDecimal(details.piedFact.totrem) }} TND
+                </div> -->
+
+                <!-- Divider -->
+                <!-- <div class="col-span-12 my-3 border-b"></div> -->
+
+                <!-- Discount -->
+                <!-- <div class="text-secondary col-span-10 self-center font-medium tracking-tight">
+                    BASE TVA 6
+                </div>
+                <div class="col-span-2 text-right text-lg">
+                    {{ convertStringToDecimal(details.piedFact.btva6) }}
+                </div> -->
+
+                <!-- Divider -->
+                <!-- <div class="col-span-12 my-3 border-b"></div> -->
+
+                <!-- Discount -->
+                <!-- <div class="text-secondary col-span-10 self-center font-medium tracking-tight">
+                    MONTANT TVA 6
+                </div>
+                <div class="col-span-2 text-right text-lg">
+                    {{ convertStringToDecimal(details.piedFact.mtva6) }} TND
+                </div> -->
+
+                <!-- Divider -->
+                <!-- <div class="col-span-12 my-3 border-b"></div> -->
+
+                <!-- Discount -->
+                <!-- <div class="text-secondary col-span-10 self-center font-medium tracking-tight">
+                    BASE TVA 18
+                </div>
+                <div class="col-span-2 text-right text-lg">
+                    {{ convertStringToDecimal(details.piedFact.btva18) }} TND
+                </div> -->
+
+                <!-- Divider -->
+                <!-- <div class="col-span-12 my-3 border-b"></div> -->
+
+                <!-- Discount -->
+                <!-- <div class="text-secondary col-span-10 self-center font-medium tracking-tight">
+                    MONTANT TVA 18
+                </div>
+                <div class="col-span-2 text-right text-lg">
+                    {{ convertStringToDecimal(details.piedFact.mtva18) }} TND
+                </div> -->
+
+                <!-- Divider -->
+                <!-- <div class="col-span-12 my-3 border-b"></div> -->
+
+                <!-- Discount -->
+                <!-- <div class="text-secondary col-span-10 self-center font-medium tracking-tight">
+                    TOTAL TVA
+                </div>
+                <div class="col-span-2 text-right text-lg">
+                    {{ convertStringToDecimal(details.piedFact.tottva) }} TND
+                </div> -->
+
+                <!-- Divider -->
+                <!-- <div class="col-span-12 my-3 border-b"></div> -->
+
+                <!-- Discount -->
+                <!-- <div class="text-secondary col-span-10 self-center font-medium tracking-tight">
+                    TIMBRE
+                </div>
+                <div class="col-span-2 text-right text-lg">
+                    {{ details.piedFact.timbre }}
+                </div> -->
+
+                <!-- Divider -->
+                <!-- <div class="col-span-12 my-3 border-b"></div> -->
+
+                <!-- Total -->
+                <!-- <div class="text-secondary col-span-10 self-center text-2xl font-medium tracking-tight">
+                    TOTAL TTC
+                </div>
+                <div class="col-span-2 text-right text-2xl font-medium">
+                    {{ convertStringToDecimal(details.piedFact.totttc) }} TND
+                </div>-->
+            </div> 
+
+            <div class="container mx-auto p-4">
+                <div class="flex">
+                    <!-- Tax/Base/MontantTVA Table -->
+                    <table class="w-1/3 border-collapse border border-gray-300">
+                        <tr class="bg-gray-100">
+                            <th class="border border-gray-300 px-4 py-2">Taux</th>
+                            <th class="border border-gray-300 px-4 py-2">Base</th>
+                            <th class="border border-gray-300 px-4 py-2">Montant TVA</th>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 px-4 py-2">7%</td>
+                            <td class="border border-gray-300 px-4 py-2">{{convertStringToDecimal(details.piedFact.btva6)}}</td>
+                            <td class="border border-gray-300 px-4 py-2">{{convertStringToDecimal(details.piedFact.mtva6)}}</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 px-4 py-2">13%</td>
+                            <td class="border border-gray-300 px-4 py-2"></td>
+                            <td class="border border-gray-300 px-4 py-2"></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 px-4 py-2">19%</td>
+                            <td class="border border-gray-300 px-4 py-2">{{convertStringToDecimal(details.piedFact.btva18)}}</td>
+                            <td class="border border-gray-300 px-4 py-2">{{convertStringToDecimal(details.piedFact.mtva6)}}</td>
+                        </tr>
+                    </table>
+            
+                    <!-- Signature Box -->
+                    <div class="w-1/3 border border-gray-300 p-4 ml-4">
+                        <p class="font-bold">Signature</p>
+                    </div>
+            
+                    <!-- Net a Payer Box -->
+                    <div class="w-1/3 border border-gray-300 p-4 ml-4">
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <p class="font-bold">TOTAL H.T</p>
+                                <p class="font-bold">TOTAL T.V.A</p>
+                                <p class="font-bold">TIMBRE</p>
+                                <p class="font-bold">NET A PAYER</p>
+                            </div>
+                            <div class="text-right">
+                                <p>{{convertStringToDecimal(details.piedFact.brutht)}}</p>
+                                <p>{{convertStringToDecimal(details.piedFact.tottva)}}</p>
+                                <p>{{details.piedFact.timbre}}</p>
+                                <p class="font-bold">{{convertStringToDecimal(details.piedFact.totttc)}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="flex mt-4">
+                    <!-- Arrêtée la présente Facture Box -->
+                    <div class="w-1/2 border border-gray-300 p-4">
+                        <p class="font-bold">Arrêtée la présente Facture à la somme de :</p>
+                        <p>{{floatToFrenchWords(convertStringToDecimal(details.piedFact.totttc))}}</p>
+                    </div>
+            
+                    <!-- Condition de Vente Box -->
+                    <div class="w-1/2 border border-gray-300 p-4 ml-4">
+                        <p class="font-bold">CONDITION DE VENTE:</p>
+                        <p class="text-sm">Aucune réclamation ou restitution ne sera admise après 8 jours et doit être accompagnée d'un bon de livraison. En cas de poursuite les tribunaux de Sfax seront compétents ainsi que tous les frais honoraires seront à la charge du client.</p>
+                    </div>
+                </div>
+            </div>
+        
+        }
+    </div>
+    </div>
+</div>
