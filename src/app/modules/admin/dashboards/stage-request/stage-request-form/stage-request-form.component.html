@@ -1,20 +1,26 @@
-<form [formGroup]="stageRequestForm" (ngSubmit)="submitForm()">
-  <div>
-    <label for="user">User</label>
-    <input id="user" formControlName="user" placeholder="Enter user ID" />
+<div class="p-6 max-w-lg mx-auto">
+  <div class="bg-white shadow-md rounded-lg overflow-hidden">
+    <div class="p-4 border-b">
+      <h1 class="text-2xl font-semibold">New Stage Request</h1>
+    </div>
+    <div class="p-4">
+      <form [formGroup]="stageRequestForm" (ngSubmit)="onSubmit()">
+        <div class="mb-4">
+          <label for="userId" class="block text-sm font-medium text-gray-700">User ID</label>
+          <input id="userId" formControlName="user.id" type="number" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
+        </div>
+        <div class="mb-4">
+          <label for="cvUrl" class="block text-sm font-medium text-gray-700">CV URL</label>
+          <input id="cvUrl" formControlName="cvUrl" type="url" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
+        </div>
+        <div class="mb-4">
+          <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+          <select id="status" formControlName="status" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            <option *ngFor="let status of stageStatuses" [value]="status">{{ status }}</option>
+          </select>
+        </div>
+        <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">Submit</button>
+      </form>
+    </div>
   </div>
-
-  <div>
-    <label for="cvUrl">CV URL</label>
-    <input id="cvUrl" formControlName="cvUrl" placeholder="Enter CV URL" />
-  </div>
-
-  <div>
-    <label for="status">Status</label>
-    <select id="status" formControlName="status">
-      <option *ngFor="let status of stageStatuses" [value]="status">{{ status }}</option>
-    </select>
-  </div>
-
-  <button type="submit">Submit</button>
-</form>
+</div>

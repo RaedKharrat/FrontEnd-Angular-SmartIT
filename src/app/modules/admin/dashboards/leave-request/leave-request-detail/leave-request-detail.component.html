@@ -1,15 +1,22 @@
-<!-- leave-request-detail.component.html -->
-<div class="p-6">
-  <h1 class="text-2xl font-semibold">Leave Request Details</h1>
-  <div class="mb-4">
-    <p><strong>User ID:</strong> {{ leaveRequest.user.id }}</p>
-    <p><strong>Leave Type:</strong> {{ leaveRequest.type }}</p>
-    <p><strong>Start Date:</strong> {{ leaveRequest.startDate }}</p>
-    <p><strong>End Date:</strong> {{ leaveRequest.endDate }}</p>
-    <p><strong>Status:</strong> {{ leaveRequest.status }}</p>
-    <p><strong>Days Accrued:</strong> {{ leaveRequest.daysAccrued }}</p>
-  </div>
-  <button (click)="approve()" class="bg-green-500 text-white px-4 py-2 rounded">Approve</button>
-  <button (click)="reject()" class="bg-red-500 text-white px-4 py-2 rounded">Reject</button>
-  <a routerLink="/leave-requests" class="text-blue-600">Back to List</a>
+<div class="p-6 max-w-3xl mx-auto">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title class="text-2xl font-semibold">Leave Request Details</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="mb-4">
+        <p><strong>User ID:</strong> {{ leaveRequest.user.id }}</p>
+        <p><strong>Leave Type:</strong> {{ leaveRequest.type }}</p>
+        <p><strong>Start Date:</strong> {{ leaveRequest.startDate | date }}</p>
+        <p><strong>End Date:</strong> {{ leaveRequest.endDate | date }}</p>
+        <p><strong>Status:</strong> {{ leaveRequest.status }}</p>
+        <p><strong>Days Accrued:</strong> {{ leaveRequest.daysAccrued }}</p>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button color="primary" (click)="approve()" class="bg-green-500 text-white px-4 py-2 rounded">Approve</button>
+      <button mat-button color="warn" (click)="reject()" class="bg-red-500 text-white px-4 py-2 rounded">Reject</button>
+      <a mat-button routerLink="/leave-requests" class="text-blue-600">Back to List</a>
+    </mat-card-actions>
+  </mat-card>
 </div>

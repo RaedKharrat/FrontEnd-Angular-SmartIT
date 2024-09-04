@@ -1,14 +1,21 @@
-// leave-request-detail.component.ts
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LeaveRequestService } from '../leave-request.service';
 import { LeaveRequest } from '../leave-request.model';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+
 @Component({
   selector: 'app-leave-request-detail',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatCardModule,
+    MatButtonModule
+  ],
   templateUrl: './leave-request-detail.component.html',
   styleUrls: ['./leave-request-detail.component.scss']
 })
